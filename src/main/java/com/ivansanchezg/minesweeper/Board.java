@@ -14,7 +14,7 @@ public class Board {
     public Board() {
         cols = 10;
         rows = 10;
-        mines = 10;
+        mines = (int) Math.sqrt(cols * rows);
         tilesRevealed = 0;
         tiles = new Tile[rows][cols];
         scanner = new Scanner(System.in);
@@ -53,12 +53,18 @@ public class Board {
         while(!gameOver && tilesRevealed < (rows * cols) - mines) {
             int[] input = readInput();
             reveal(input[0], input[1]);
+            printBoard();
         }
         if(gameOver) {
             System.out.println("Game Over");
         } else {
             System.out.println("You won");
-        }        
+        }
+        System.out.print("Play again? Y/N: ");
+        String response = scanner.next();
+        if(response.equalsIgnoreCase("y")) {
+            init();
+        }
     }
 
     private int[] readInput() {
@@ -116,7 +122,6 @@ public class Board {
                 }
             }
         }
-        printBoard();
     }
 
     private void printBoard() {
@@ -145,13 +150,9 @@ public class Board {
 
     private int countMinesCountAround(int x, int y) {
         int count = 0;
-        //System.out.println("Counting mines");
         for(int i = x - 1; i <= x + 1; i++) {
             for(int j = y - 1; j <= y + 1; j++) {
-                //System.out.println("Checking: " + i + "," + j);
                 if(inRange(i, j) && !(i == x && j == y)) {
-                    //System.out.println(i + "," + j + " is in range and is different from " + x + "," + y);
-                    //System.out.println("Value: " + tiles[i][j].getValue());
                     if (tiles[i][j].getValue() == -1) {
                         count++;
                     }
