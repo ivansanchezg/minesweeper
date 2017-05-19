@@ -81,6 +81,14 @@ public class Board {
         }
     }
 
+    public void toggleDisplayValue(int row, int col, char value) {
+        if (tiles[row][col].getDisplayValue() == value) {
+            tiles[row][col].setDisplayValue(' ');
+        } else {
+            tiles[row][col].setDisplayValue(value);
+        }
+    }
+
     private int countMinesCountAround(int row, int col) {
         int count = 0;
         for(int i = row - 1; i <= row + 1; i++) {
