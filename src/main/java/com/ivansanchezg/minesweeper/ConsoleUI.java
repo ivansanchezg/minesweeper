@@ -17,18 +17,18 @@ public class ConsoleUI {
     }
 
     private void startGame() {
-        while(!board.isGameOver() && board.getTilesRevealed() < (rows * cols) - board.getMines()) {
+        while (!board.isGameOver() && !board.playerWon()) {
             readInput();
             printBoard();
         }
-        if(board.isGameOver()) {
+        if (board.isGameOver()) {
             System.out.println("Game Over");
-        } else {
+        } else if (board.playerWon()) {
             System.out.println("You won");
         }
         System.out.print("Play again? Y/N: ");
         String response = scanner.next();
-        if(response.equalsIgnoreCase("y")) {
+        if (response.equalsIgnoreCase("y")) {
             board.init();
             startGame();
         }
@@ -75,6 +75,7 @@ public class ConsoleUI {
         return true;
     }
 
+    //Prints the board on the console
     private void printBoard() {
         Tile[][] tiles = board.getTiles();
         System.out.println("");

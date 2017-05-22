@@ -38,7 +38,6 @@ public class Board {
                 row = (int) (Math.random() * rows);
                 col = (int) (Math.random() * cols);
             } while(tiles[row][col].getValue() == -1);
-            //System.out.println("Mine set at: " + row + "," + col);
             tiles[row][col] = new Tile(-1);
         }
     }
@@ -107,15 +106,19 @@ public class Board {
         return gameOver;
     }
 
+    public boolean playerWon() {
+        return tilesRevealed == (rows * cols) - mines;
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
     public int getTilesRevealed() {
         return tilesRevealed;
     }
 
     public int getMines() {
         return mines;
-    }
-
-    public Tile[][] getTiles() {
-        return tiles;
     }
 }
